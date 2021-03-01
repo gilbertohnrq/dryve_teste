@@ -3,8 +3,8 @@
 Feito utilizando:
 
   - Flutter
-  - Dio
   - GetX
+  - GetConnect
 
 
 # APP
