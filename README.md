@@ -24,4 +24,6 @@ Feito utilizando:
 - [x] Botão para limpar filtros na listagem de carros no feed
 - [x] Exibir no botão de filtros a quantidade de filtros aplicados
 - [x] Exibir tela alternativa não houver itens da listagem que correspodem aos filtros
+- [x] Listar os carros offline com storage local
+- [x] Salvar carros favoritados no banco local
 

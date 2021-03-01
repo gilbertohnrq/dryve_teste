@@ -66,9 +66,21 @@ class HomeController extends GetxController {
     _brandList.assignAll(data);
   }
 
-  Future<void> getCars() async {
+  Future<void> getCars([bool onRefresh = false]) async {
     final data = await _carRepository.getAllCars();
     _carList.assignAll(data);
+    if (onRefresh) {
+      FluttertoastUtil.showToast(msg: "Lista atualizada");
+    }
+  }
+
+  Future<void> removeFilterAndRefresh([bool onRefresh = false]) async {
+    final data = await _carRepository.getAllCars();
+    _carList.assignAll(data);
+    if (onRefresh && carList.length == 0) {
+      clearFilter();
+      FluttertoastUtil.showToast(msg: "Filtro removido e lista atualizada");
+    }
   }
 
   Future<void> getColors() async {
@@ -128,6 +140,7 @@ class HomeController extends GetxController {
     car.update((val) {
       val.favorited = !val.favorited;
     });
+    _carRepository.saveFavoritedCars(car.value);
   }
 
   void setIsColorChecked(Rx<ColorModel> color) {

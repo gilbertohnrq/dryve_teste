@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dryve/controllers/home_controller.dart';
 import 'package:dryve/pages/home/widgets/filter_bottomsheet.dart';
 import 'package:dryve/utils/color_util.dart';
-import 'package:dryve/utils/fluttertoast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -79,16 +78,30 @@ class HomePage extends GetView<HomeController> {
       body: Obx(
         () => RefreshIndicator(
           onRefresh: () async {
-            await controller.getCars();
-            FluttertoastUtil.showToast(msg: "Lista atualizada");
+            await controller.getCars(true);
           },
           child: controller.carList.length == 0
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/images/icon_busca.png'),
-                      Text("Nenhum resultado encontrado :("),
+                      IconButton(
+                        splashRadius: 25,
+                        icon: Icon(
+                          Icons.refresh,
+                          size: 30,
+                          color: ColorUtil.TEXT_PRIMARY,
+                        ),
+                        onPressed: () async => await controller.removeFilterAndRefresh(true),
+                      ),
+                      Text(
+                        "Nenhum resultado encontrado :(",
+                        style: TextStyle(
+                          color: ColorUtil.TEXT_PRIMARY,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 )
